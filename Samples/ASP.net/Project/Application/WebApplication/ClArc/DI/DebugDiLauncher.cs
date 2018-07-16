@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using MockUseCase.Lib.JsonResponse;
 using WebApplication.ClArc.Lib.Bus;
 
 namespace WebApplication.ClArc.DI
@@ -7,7 +10,16 @@ namespace WebApplication.ClArc.DI
     {
         public void Run(IServiceCollection services)
         {
+            RegisterJsonGenerator(services);
             RegisterUseCaseBus(services);
+        }
+
+        private void RegisterJsonGenerator(IServiceCollection services)
+        {
+            var webProjectFullPath = AppDomain.CurrentDomain.BaseDirectory;
+            var jsonResponseFullPath = Path.Combine(webProjectFullPath, "Debug", "JsonResponses");
+            var generator = new JsonResponseGenerator(jsonResponseFullPath);
+            services.AddSingleton(generator);
         }
 
         private void RegisterUseCaseBus(IServiceCollection services)

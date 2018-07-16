@@ -6,11 +6,12 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
-    <Compile Remove="Lib\**" />
     <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="Lib\**" />
     <None Remove="Data\**" />
-    <None Remove="Lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
