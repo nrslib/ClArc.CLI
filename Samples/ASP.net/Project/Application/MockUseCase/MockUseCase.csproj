@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Lib\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Lib\**" />
+    <None Remove="Data\**" />
+    <None Remove="Lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Usecase\UseCase.csproj" />
+  </ItemGroup>
+
+</Project>
