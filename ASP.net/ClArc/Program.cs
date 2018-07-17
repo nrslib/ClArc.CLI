@@ -2,6 +2,7 @@
 using Clarc.Commands.CreateUseCase;
 using NrsCl;
 using NrsCl.Commands;
+using NrsCl.Consoles;
 using NrsCl.Environment;
 
 namespace Clarc
@@ -10,7 +11,8 @@ namespace Clarc
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CLIConsole.WriteLine("Welcome to ClArc");
+            CLIConsole.WriteLine();
             var commands = new CLICommandsContainer
             {
                 {new CLICommandConfig("UseCase"), new CreateUseCaseCommand()}
