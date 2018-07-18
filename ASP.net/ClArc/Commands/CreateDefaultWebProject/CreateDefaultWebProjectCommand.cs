@@ -38,7 +38,7 @@ namespace ClArc.Commands.CreateDefaultWebProject {
             }
 
             CLIConsole.WriteSeparator();
-            CLIConsole.WriteLine("The following UseCase will be created:");
+            CLIConsole.WriteLine("The following WebProject will be created:");
             CLIConsole.WriteSeparator();
             CLIConsole.WriteLine("directory:");
             CLIConsole.WriteLine("- " + directory);
