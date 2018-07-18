@@ -13,9 +13,18 @@
 
         public static DiResolver Instance { get; }
 
+        public bool IsDevelop { get; set; }
+            
         public IDILauncher InstantiateLauncher()
         {
-            return new DebugDiLauncher();
+            if (IsDevelop)
+            {
+                return new DebugDiLauncher();
+            }
+            else
+            {
+                return new ProductDiLauncher();
+            }
         }
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateDefaultWebProject\CreateDefaultWebProjectCommand.cs" />
     <Compile Include="Commands\CreateUseCase\Core\CreateUseCaseTask.cs" />
     <Compile Include="Commands\CreateUseCase\Core\CreateUseCaseTaskParameter.cs" />
     <Compile Include="Commands\CreateUseCase\Core\MakeUseCase\CreateClassData.cs" />
@@ -81,6 +82,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Templates\Application.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\ClArc.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

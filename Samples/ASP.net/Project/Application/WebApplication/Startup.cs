@@ -8,8 +8,11 @@ namespace WebApplication
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IHostingEnvironment env;
+
+        public Startup(IHostingEnvironment env, IConfiguration configuration)
         {
+            this.env = env;
             Configuration = configuration;
         }
 
@@ -20,6 +23,7 @@ namespace WebApplication
         {
             services.AddMvc();
 
+            DiResolver.Instance.IsDevelop = env.IsDevelopment();
             var diLauncher = DiResolver.Instance.InstantiateLauncher();
             diLauncher.Run(services);
         }

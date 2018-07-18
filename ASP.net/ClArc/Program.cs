@@ -1,5 +1,6 @@
 ﻿using System;
 using Clarc.Commands.CreateUseCase;
+using ClArc.Commands.CreateDefaultWebProject;
 using NrsCl;
 using NrsCl.Commands;
 using NrsCl.Consoles;
@@ -15,7 +16,8 @@ namespace Clarc
             CLIConsole.WriteLine();
             var commands = new CLICommandsContainer
             {
-                {new CLICommandConfig("UseCase"), new CreateUseCaseCommand()}
+                { new CLICommandConfig("GenerateDefaultWebProject"), new CreateDefaultWebProjectCommand() },
+                { new CLICommandConfig("UseCase"), new CreateUseCaseCommand() },
             };
             var context = new CLIContext(Environment.CurrentDirectory);
             using (var driver = new Driver(commands, context))
