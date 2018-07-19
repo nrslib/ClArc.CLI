@@ -23,6 +23,8 @@ namespace Clarc.Commands.CreateUseCase.Core
 
             var registerParameter = new UseCaseRegisterParameter(taskParam.WebProjectFullPath, taskParam.ControllerName, taskParam.ActionName);
             RegisterUseCase(registerParameter);
+
+            CreateJsonResponseFile(taskParam);
         }
         
         private void CreateUsecaseTo(string projectName, string projectDirectoryFullPath, MakeUseCaseParameter param, params IMaker[] makers)
@@ -94,6 +96,18 @@ namespace Clarc.Commands.CreateUseCase.Core
             using (var zip = new ZipFile(zipFileFullPath)) {
                 zip.ExtractAll(webProjectFullPath);
             }
+        }
+
+        private void CreateJsonResponseFile(CreateUseCaseTaskParameter taskParam)
+        {
+            var outputDirectoryFullPath = Path.Combine(taskParam.WebProjectFullPath, "Debug", "JsonResponses");
+            var fileName = taskParam.ControllerName + taskParam.ActionName + ".jsons";
+            var fileFullPath = Path.Combine(outputDirectoryFullPath, fileName);
+            if (!Directory.Exists(outputDirectoryFullPath))
+            {
+                Directory.CreateDirectory(outputDirectoryFullPath);
+            }
+            File.Create(fileFullPath).Close();
         }
     }
 }

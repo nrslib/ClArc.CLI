@@ -24,17 +24,29 @@ namespace ClArc.Commands.CreateUseCase.Core.MakeUseCase {
 
             var meta = new ClassMeta(classNamespace, className);
             meta.SetupUsing()
-                .AddUsing("System")
+                .AddUsing("MockUseCase.Lib.JsonResponse")
                 .AddUsing("UseCase." + param.ControllerName + "." + param.ActionName);
 
             meta.SetupImplements()
                 .AddImplements("I" + param.CompleteName + "UseCase");
 
+            meta.SetupFields()
+                .AddField("responseGenerator",
+                    field => field.SetReadOnly(true).SetType("JsonResponseGenerator"));
+
+            meta.SetupConstructor()
+                .AddConstructor(constructor => constructor
+                    .SetAccessLevel(AccessLevel.Public)
+                    .AddArgument("responseGenerator", "JsonResponseGenerator")
+                    .AddBody("this.responseGenerator = responseGenerator;"));
+
+            var responseClassName = param.CompleteName + "Response";
             meta.SetupMethods()
                 .AddMethod("Handle", method => method
-                    .SetReturnType(param.CompleteName + "Response")
+                    .SetReturnType(responseClassName)
                     .AddArgument("request", param.CompleteName + "Request")
                     .SetAccessLevel(AccessLevel.Public)
+                    .AddBody($"return responseGenerator.Generate<{responseClassName}>();")
                 );
 
             var content = classFileGenerateDriver.Create(meta, Language.CSharp);
