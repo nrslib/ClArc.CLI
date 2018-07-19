@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MockUseCase.Lib.JsonResponse;
 using WebApplication.ClArc.Lib.Bus;
@@ -8,6 +8,13 @@ namespace WebApplication.ClArc.DI
 {
     public class DebugDiLauncher : IDILauncher
     {
+        private readonly IHostingEnvironment env;
+
+        public DebugDiLauncher(IHostingEnvironment env)
+        {
+            this.env = env;
+        }
+
         public void Run(IServiceCollection services)
         {
             RegisterJsonGenerator(services);
@@ -16,8 +23,7 @@ namespace WebApplication.ClArc.DI
 
         private void RegisterJsonGenerator(IServiceCollection services)
         {
-            var webProjectFullPath = AppDomain.CurrentDomain.BaseDirectory;
-            var jsonResponseFullPath = Path.Combine(webProjectFullPath, "Debug", "JsonResponses");
+            var jsonResponseFullPath = Path.Combine(env.ContentRootPath, "Debug", "JsonResponses");
             var generator = new JsonResponseGenerator(jsonResponseFullPath);
             services.AddSingleton(generator);
         }

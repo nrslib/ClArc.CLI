@@ -1,4 +1,6 @@
-﻿namespace WebApplication.ClArc.DI
+﻿using Microsoft.AspNetCore.Hosting;
+
+namespace WebApplication.ClArc.DI
 {
     class DiResolver
     {
@@ -15,11 +17,11 @@
 
         public bool IsDevelop { get; set; }
             
-        public IDILauncher InstantiateLauncher()
+        public IDILauncher InstantiateLauncher(IHostingEnvironment env)
         {
             if (IsDevelop)
             {
-                return new DebugDiLauncher();
+                return new DebugDiLauncher(env);
             }
             else
             {

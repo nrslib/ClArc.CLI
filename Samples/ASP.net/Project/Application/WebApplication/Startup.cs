@@ -24,7 +24,7 @@ namespace WebApplication
             services.AddMvc();
 
             DiResolver.Instance.IsDevelop = env.IsDevelopment();
-            var diLauncher = DiResolver.Instance.InstantiateLauncher();
+            var diLauncher = DiResolver.Instance.InstantiateLauncher(env);
             diLauncher.Run(services);
         }
 
