@@ -34,7 +34,10 @@ namespace MockUseCase.Lib.JsonResponse
             var targetJson = now < jsons.Count ? jsons[now] : jsons.LastOrDefault();
             now++;
 
-            var instance = JsonConvert.DeserializeObject<T>(targetJson, jsonSerializerSettings);
+            var instance = targetJson == null
+                ? createAnyInstance()
+                : JsonConvert.DeserializeObject<T>(targetJson, jsonSerializerSettings);
+
             return instance;
         }
 
@@ -45,8 +48,8 @@ namespace MockUseCase.Lib.JsonResponse
             var defaultParameters = constructorInfo.GetParameters()
                 .Select(x => x.ParameterType)
                 .Select(createDefaultType);
-            var created = (T) Activator.CreateInstance(instanceType, defaultParameters);
-            return created;
+            var instance = (T)constructorInfo.Invoke(defaultParameters.ToArray());
+            return instance;
         }
 
         private object createDefaultType(Type t)

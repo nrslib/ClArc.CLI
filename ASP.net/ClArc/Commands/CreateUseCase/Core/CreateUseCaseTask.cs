@@ -101,7 +101,7 @@ namespace Clarc.Commands.CreateUseCase.Core
         private void CreateJsonResponseFile(CreateUseCaseTaskParameter taskParam)
         {
             var outputDirectoryFullPath = Path.Combine(taskParam.WebProjectFullPath, "Debug", "JsonResponses");
-            var fileName = taskParam.ControllerName + taskParam.ActionName + ".jsons";
+            var fileName = taskParam.ControllerName + taskParam.ActionName + "Response.jsons";
             var fileFullPath = Path.Combine(outputDirectoryFullPath, fileName);
             if (!Directory.Exists(outputDirectoryFullPath))
             {
