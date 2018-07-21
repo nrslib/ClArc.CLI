@@ -1,19 +1,10 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication.ClArc.Lib.Bus;
-using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UseCaseBus bus;
-
-        public HomeController(UseCaseBus bus)
-        {
-            this.bus = bus;
-        }
-
         public IActionResult Index()
         {
             return View();
