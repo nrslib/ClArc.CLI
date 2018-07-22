@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using MockUseCase.Lib.JsonResponse;
+using NrsLib.SequentiallyJsonDataLoader;
 using WebApplication.ClArc.Lib.Bus;
 
 namespace WebApplication.ClArc.DI
@@ -24,7 +24,7 @@ namespace WebApplication.ClArc.DI
         private void RegisterJsonGenerator(IServiceCollection services)
         {
             var jsonResponseFullPath = Path.Combine(env.ContentRootPath, "Debug", "JsonResponses");
-            var generator = new JsonResponseGenerator(jsonResponseFullPath);
+            var generator = new JsonsLoader(jsonResponseFullPath);
             services.AddSingleton(generator);
         }
 

@@ -24,21 +24,21 @@ namespace ClArc.Commands.CreateUseCase.Core.MakeUseCase {
 
             var meta = new ClassMeta(classNamespace, className);
             meta.SetupUsing()
-                .AddUsing("MockUseCase.Lib.JsonResponse")
+                .AddUsing("NrsLib.SequentiallyJsonDataLoader")
                 .AddUsing("UseCase." + param.ControllerName + "." + param.ActionName);
 
             meta.SetupImplements()
                 .AddImplements("I" + param.CompleteName + "UseCase");
 
             meta.SetupFields()
-                .AddField("responseGenerator",
-                    field => field.SetReadOnly(true).SetType("JsonResponseGenerator"));
+                .AddField("jsonsLoader",
+                    field => field.SetReadOnly(true).SetType("JsonsLoader"));
 
             meta.SetupConstructor()
                 .AddConstructor(constructor => constructor
                     .SetAccessLevel(AccessLevel.Public)
-                    .AddArgument("responseGenerator", "JsonResponseGenerator")
-                    .AddBody("this.responseGenerator = responseGenerator;"));
+                    .AddArgument("jsonsLoader", "JsonsLoader")
+                    .AddBody("this.jsonsLoader = jsonsLoader;"));
 
             var responseClassName = param.CompleteName + "Response";
             meta.SetupMethods()
@@ -46,7 +46,7 @@ namespace ClArc.Commands.CreateUseCase.Core.MakeUseCase {
                     .SetReturnType(responseClassName)
                     .AddArgument("request", param.CompleteName + "Request")
                     .SetAccessLevel(AccessLevel.Public)
-                    .AddBody($"return responseGenerator.Generate<{responseClassName}>();")
+                    .AddBody($"return jsonsLoader.Generate<{responseClassName}>();")
                 );
 
             var content = classFileGenerateDriver.Create(meta, Language.CSharp);
