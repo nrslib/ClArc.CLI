@@ -1,4 +1,6 @@
-# Clean Architecture Scaffolding
+# ClArc.CLI
+Clean Architecture Scaffolding CommandLine Tool
+
 クリーンアーキテクチャに従ってクラスを生成する仕組みです。
 
 # 使い方
